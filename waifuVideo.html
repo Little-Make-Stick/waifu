@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 绘制视频时： 需要在视频标签上添加 autoplay muted 两个属性才可以 -->
+    <video src="./video/基建/安洁莉娜-质素访客-基建-Interact-x1.webm" width="300" class="video" controls autoplay muted
+        style="visibility: hidden;"></video>
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <script>
+        // const c = document.querySelector('#canvas')
+        // const video = document.querySelector('.video');
+        // // 设置时间戳解决跨域，只有第一帧有效
+        // // video.src+='?'+new Date().getTime();
+        // // 直接跨域
+        // // video.crossOrigin = '';
+        // // console.log(video.crossOrigin);
+        // let imgDataArr = new Array(),imgData
+        // const ctx = c.getContext('2d')
+        // // 针对视频比较特殊 canplay 事件： 视频加载完毕可以开始播放时触发该事件 
+        // video.oncanplay = function () { ctx.drawImage(video, 0, 0, c.width, c.height) }
+        // // timeupdate 事件在音频/视频（audio/video）的播放位置发生改变时触发。 
+        // video.ontimeupdate = async function () {
+        //     // 清除上一帧
+        //     ctx.clearRect(0, 0, c.width, c.height);
+        //     // 视频都改变一帧画一帧 
+        //     await ctx.drawImage(video, 0, 0, c.width, c.height);
+        //     imgData = await ctx.getImageData(0, 0, c.width, c.height);
+        //     imgDataArr.push(imgData);
+        // }
+        // video.onended = function () {
+        //     ctx.putImageData(imgDataArr[imgDataArr.length - 1], 0, 0);
+        // }
+
+    </script>
+    <script>
+        const c = document.querySelector('#canvas')
+        let video = document.querySelector('.video')
+        // 设置时间戳解决跨域，只有第一帧有效
+        // video.src+='?'+new Date().getTime();
+        // 直接跨域
+        // video.crossOrigin = '';
+        // console.log(video.crossOrigin);
+        let imgDataArr = new Array(), imgData
+        const ctx = c.getContext('2d')
+        // 针对视频比较特殊 canplay 事件： 视频加载完毕可以开始播放时触发该事件 
+        video.oncanplay = function () { ctx.drawImage(video, 0, 0, c.width, c.height) }
+        // timeupdate 事件在音频/视频（audio/video）的播放位置发生改变时触发。 
+        video.ontimeupdate = async function () {
+            // 清除上一帧
+            ctx.clearRect(0, 0, c.width, c.height);
+            // console.log(1); // 视频都改变一帧画一帧 
+            ctx.drawImage(video, 0, 0, c.width, c.height);
+            imgData = ctx.getImageData(0, 0, c.width, c.height);
+            imgDataArr.push(imgData);
+        }
+        video.onended = function () {
+            if (!video.loop) {
+                ctx.clearRect(0, 0, c.width, c.height);
+                ctx.putImageData(imgDataArr[imgDataArr.length - 1], 0, 0);
+            }
+        }
+
+
+        let videoArr = [
+        {src:'./video/基建/安洁莉娜-质素访客-基建-Interact-x1.webm',loop:false,clearTime:20},
+            {src:'./video/基建/安洁莉娜-质素访客-基建-Move-x1.webm',loop:true,clearTime:20},
+            {src:'./video/基建/安洁莉娜-质素访客-基建-Relax-x1.webm',loop:true,clearTime:20},
+            {src:'./video/基建/安洁莉娜-质素访客-基建-Sit-x1.webm',loop:true,clearTime:20},
+            {src:'./video/基建/安洁莉娜-质素访客-基建-Sleep-x1.webm',loop:true,clearTime:20},
+            {src:'./video/基建/安洁莉娜-质素访客-基建-Special-x1.webm',loop:false,clearTime:20},
+
+            {src:'./video/战斗正面/安洁莉娜-质素访客-战斗正面-Attack-x1.webm',loop:false,clearTime:20},
+            {src:'./video/战斗正面/安洁莉娜-质素访客-战斗正面-Die-x1.webm',loop:false,clearTime:20},
+            {src:'./video/战斗正面/安洁莉娜-质素访客-战斗正面-Idle-x1.webm',loop:false,clearTime:20},
+            {src:'./video/战斗正面/安洁莉娜-质素访客-战斗正面-Idle_Charge-x1.webm',loop:false,clearTime:30},
+            {src:'./video/战斗正面/安洁莉娜-质素访客-战斗正面-Skill1_Loop-x1.webm',loop:false,clearTime:20},
+            {src:'./video/战斗正面/安洁莉娜-质素访客-战斗正面-Skill2_Loop-x1.webm',loop:false,clearTime:20},
+            {src:'./video/战斗正面/安洁莉娜-质素访客-战斗正面-Start-x1.webm',loop:false,clearTime:20},
+        ]
+
+        c.addEventListener('mouseover', () => {
+            let randomNum = Math.floor(Math.random() * videoArr.length);
+            video.src = videoArr[randomNum].src;
+            video.loop = videoArr[randomNum].loop;
+        })
+
+        window.onload=()=>{
+            setTimeout(()=>{
+                video.src = videoArr[videoArr.length-1].src;
+                video.loop = videoArr[videoArr.length-1].loop;
+                drawVideo(video_);
+            },2000);
+        }
+    </script>
+</body>
+
+</html>

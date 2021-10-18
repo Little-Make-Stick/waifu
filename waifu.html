@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="waifuCanvas" width="300" height="300" style="border: none;"></canvas>
+    <img class="img1" src="./image/基建/嵯峨-默认-基建-Interact-x1.gif" width="300" alt="">
+    <!-- <img class="img2" src="./image/战斗正面/默认-战斗正面-Attack_Begin.png" width="300" alt=""> -->
+    <!-- <img class="img3" src="./image/战斗正面/默认-战斗正面-Attrack_Begin.jpg" width="300" alt=""> -->
+
+    <script>
+        // 绘制图片
+        var c = document.getElementById("waifuCanvas");
+        var ctx = c.getContext("2d");
+        var img_ = document.querySelector('.img1');
+        // var img_ = document.querySelector('.img2');
+        // var img_ = document.querySelector('.img3');
+        img_.onload = function () {
+            ctx.drawImage(img_, 0, 0,300,300);
+        }
+    </script>
+
+    <script>
+        // 绘制图片
+        // var c = document.getElementById("waifuCanvas");
+        // var ctx = c.getContext("2d");
+        // var img_ = new Image();
+        // img_.src = './image/基建/嵯峨-默认-基建-Interact-x1.gif'
+        // img_.onload = function () {
+        //     ctx.drawImage(img_, 0, 0,300,300);
+        // }
+    </script>
+
+    <script>
+        // var c = document.getElementById("waifuCanvas");
+        // var ctx = c.getContext("2d");
+
+        //位图填充
+        // var bgimg = new Image();
+        // bgimg.src = "background.jpg";
+        // bgimg.onload = function () {
+        //     var pattern = ctx.createPattern(bgimg, "repeat");
+        //     ctx.fillStyle = pattern;
+        //     ctx.strokeStyle = "#F20B0B";
+        //     ctx.fillRect(600, 100, 200, 200);
+        //     ctx.strokeRect(400, 0, 500, 500);
+        // };
+    </script>
+
+    
+
+    
+</body>
+
+</html>

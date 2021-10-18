@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="waifuCanvas" width="300" height="300" style="border: none;"></canvas>
+    <video id="video" muted width="320" height="240" controls="true" autoplay="true" loop="true"
+        style="visibility: hidden;">
+        <source src="./video/基建/安洁莉娜-质素访客-基建-Interact-x1.webm" type="video/webm">
+        您的浏览器不支持Video标签。
+    </video>
+    <script>
+        // 绘制视频
+        // var c = document.getElementById("waifuCanvas");
+        // var ctx = c.getContext("2d");
+        // var video_ = document.querySelector('video');
+        // var timer
+
+        // if (window.requestAnimationFrame) {
+        //     video_.addEventListener('play', draw)
+        // } else {
+        //     video_.addEventListener('play', function () {timer = setInterval(function () {ctx.drawImage(video_, 0, 0)}, 1000)})
+        //     video_.addEventListener('pause', function () {clearInterval(timer)})
+        // }
+
+
+
+        // function draw() {
+        //     var stop = window.requestAnimationFrame(draw);
+        //     ctx.drawImage(video_, 0, 0, 300, 300);
+        //     video_.addEventListener('pause', function () { window.cancelAnimationFrame(stop) })
+        //     video_.addEventListener('ended', function () { window.cancelAnimationFrame(stop) })
+        // }
+
+        // // 1.video
+        // video_.addEventListener('play', draw)
+
+        // // // 2.video
+        // video_.addEventListener('play', function () { 
+        //     timer = setInterval(function () { 
+        //         // ctx.drawImage(video_, 0, 0, 300, 300); 
+        //         ctx.clearRect(0, 0, c.width, c.height); 
+        //     }, 50) })
+
+        // video_.addEventListener('pause', function () { clearInterval(timer) })
+    </script>
+
+    <script>
+        // 绘制视频
+        var c = document.getElementById("waifuCanvas");
+        var ctx = c.getContext("2d");
+        var video_=document.getElementById("video"),imgDataArr=new Array()
+        function draw() {
+            var stop = window.requestAnimationFrame(draw);
+            ctx.clearRect(0, 0, c.width, c.height);
+            ctx.drawImage(video_, 0, 0, c.width, c.height);
+            // imgDataArr.push(ctx.getImageData(0,0,c.width,c.height));
+            // video_.addEventListener('pause', function () { window.cancelAnimationFrame(stop); });
+            video_.addEventListener('ended', function () { window.cancelAnimationFrame(stop); });
+            // video_.addEventListener('ended', function () { ctx.putImageData(imgDataArr[imgDataArr.length-1],0,0) ;});
+        }
+
+        function drawVideo(videoNode,clearTime) {
+            video_ = videoNode;
+            video_.addEventListener('play', draw);
+        }
+
+        let videoArr = [
+            {src:'./video/基建/安洁莉娜-质素访客-基建-Interact-x1.webm',loop:false,clearTime:20},
+            {src:'./video/基建/安洁莉娜-质素访客-基建-Move-x1.webm',loop:true,clearTime:20},
+            {src:'./video/基建/安洁莉娜-质素访客-基建-Relax-x1.webm',loop:true,clearTime:20},
+            {src:'./video/基建/安洁莉娜-质素访客-基建-Sit-x1.webm',loop:true,clearTime:20},
+            {src:'./video/基建/安洁莉娜-质素访客-基建-Sleep-x1.webm',loop:true,clearTime:20},
+            {src:'./video/基建/安洁莉娜-质素访客-基建-Special-x1.webm',loop:false,clearTime:20},
+            {src:'./video/战斗正面/安洁莉娜-质素访客-战斗正面-Idle-x1.webm',loop:true,clearTime:20},
+            {src:'./video/战斗正面/安洁莉娜-质素访客-战斗正面-Idle_Charge-x1.webm',loop:true,clearTime:30},
+            {src:'./video/战斗正面/安洁莉娜-质素访客-战斗正面-Start-x1.webm',loop:false,clearTime:20},
+        ]
+
+
+
+        c.addEventListener('mouseover', () => {
+            imgDataArr = [];
+            let randomNum = Math.floor(Math.random()*videoArr.length);
+            video_.src = videoArr[randomNum].src;
+            video_.loop = videoArr[randomNum].loop;
+            drawVideo(video_);
+        })
+
+        window.onload=()=>{
+            setTimeout(()=>{
+                video_.src = videoArr[videoArr.length-1].src;
+                video_.loop = videoArr[videoArr.length-1].loop;
+                drawVideo(video_);
+            },2000);
+        }
+    </script>
+</body>
+</html>
